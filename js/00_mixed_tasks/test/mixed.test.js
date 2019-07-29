@@ -7,9 +7,7 @@ function extractUniqueCharacters(testString) {
   var test = true;
   var testStr = String(testString);
 
-  if (testString === null)
-    return result;
-  else if (typeof (testString) === 'undefined')
+  if (!testString)
     return result;
 
   for (var i = 0; i < testStr.length; i++) {
@@ -36,9 +34,7 @@ function extractUniqueCharacters(testString) {
 * Expected Output : true
 */
 function isNumberPrime(testNumber) {
-  if (testNumber === null)
-    return false;
-  else if (typeof (testNumber) === 'undefined')
+  if (!testNumber)
     return false;
   else if (testNumber < 1)
     return false;
@@ -61,9 +57,7 @@ function isNumberPrime(testNumber) {
 */
 function isStringPalindrome(testString) {
   var testStr = String(testString);
-  if (testStr === null)
-    return false;
-  else if (typeof (testStr) === 'undefined')
+  if (!testStr)
     return false;
 
   var i = 0;
@@ -84,9 +78,7 @@ function isStringPalindrome(testString) {
 * Expected Output : 54321
 */
 function getReversedNumber(testNumber) {    //
-  if (testNumber === null)
-    return null;
-  else if (typeof (testNumber) === 'undefined')
+  if (!testNumber)
     return null;
   else if (isNaN(parseInt(testNumber)))
     return null;
@@ -105,7 +97,19 @@ function getReversedNumber(testNumber) {    //
 * Expected Output : [6, 'dog', 'car']
 * */
 function filterArray(testArray) {
-  return []
+  var outputArray = [];
+
+  if (!testArray)
+    return outputArray;
+
+  for (var i = 0; i < testArray.length; i++) {
+    var element = testArray[i];
+    if (element) {
+      outputArray.push(element);
+    }
+  }
+
+  return outputArray;
 }
 
 /*
