@@ -97,19 +97,14 @@ function getReversedNumber(testNumber) {    //
 * Expected Output : [6, 'dog', 'car']
 * */
 function filterArray(testArray) {
-  var outputArray = [];
-
   if (!testArray)
-    return outputArray;
+    return [];
 
-  for (var i = 0; i < testArray.length; i++) {
-    var element = testArray[i];
-    if (element) {
-      outputArray.push(element);
-    }
-  }
-
-  return outputArray;
+  return testArray.reduce((a, b) => {
+    if (b)
+      a.push(b);
+    return a;
+  }, new Array());
 }
 
 /*
@@ -118,10 +113,27 @@ function filterArray(testArray) {
 * Expected Output : [6, 'dog', 'car']
 */
 function findMostFrequent(testArray) {
-  // if (!testArray)
-  //   return null;
-  // var outputArray = [];
-  return [];
+  if (!testArray)
+    return null;
+
+  var max = 1;
+  var resultArray = testArray.reduce((a, b) => {
+    if (a[b]) {
+      a[b]++;
+    } else
+      a[b] = 1;
+    return a;
+  }, new Array())
+  Object.keys(resultArray).forEach(a => {
+    if (resultArray[a] > max)
+      max = resultArray[a];
+  })
+  
+  console.log(Object.keys(resultArray).filter(a => resultArray[a] === max).map(a => parseInt(a)));
+  return Object.keys(resultArray).filter(a => resultArray[a] === max).map(a => parseInt(a));
+
+  console.log(parseInt(Object.keys(resultArray).filter(a=>resultArray[a]===max).pop()));
+  return parseInt(Object.keys(resultArray).filter(a=>resultArray[a]===max).pop());
 }
 
 /*
