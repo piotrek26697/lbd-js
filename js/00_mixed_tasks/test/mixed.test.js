@@ -3,29 +3,18 @@
 * Expected Output : "cdwerty"
 */
 function extractUniqueCharacters(testString) {
-  var result = "";
-  var test = true;
-  var testStr = String(testString);
-
   if (!testString)
-    return result;
+    return "";
 
-  for (var i = 0; i < testStr.length; i++) {
-    var character = testStr.charAt(i);
-
-    for (var j = 0; j < testStr.length; j++) {
-      if (j !== i) {
-        if (character === testStr.charAt(j)) {
-          test = false;
-          break;
-        }
-      }
-    }
-    if (test === true)
-      result += character;
-    test = true;
-  }
-  return result;
+  var resultString = Array.from(String(testString)).reduce((a, b) => {
+    if (a[b]) {
+      a[b]++;
+    } else
+      a[b] = 1;
+    return a;
+  }, new Array());
+  console.log(Object.keys(resultString).filter(a => resultString[a] === 1).join(""));
+  return Object.keys(resultString).filter(a => resultString[a] === 1).join("");
 }
 
 /*
@@ -128,12 +117,12 @@ function findMostFrequent(testArray) {
     if (resultArray[a] > max)
       max = resultArray[a];
   })
-  
+
   console.log(Object.keys(resultArray).filter(a => resultArray[a] === max).map(a => parseInt(a)));
   return Object.keys(resultArray).filter(a => resultArray[a] === max).map(a => parseInt(a));
 
-  console.log(parseInt(Object.keys(resultArray).filter(a=>resultArray[a]===max).pop()));
-  return parseInt(Object.keys(resultArray).filter(a=>resultArray[a]===max).pop());
+  // console.log(parseInt(Object.keys(resultArray).filter(a=>resultArray[a]===max).pop()));
+  // return parseInt(Object.keys(resultArray).filter(a=>resultArray[a]===max).pop());
 }
 
 /*
