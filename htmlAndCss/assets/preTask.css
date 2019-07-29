@@ -1,0 +1,14 @@
+h1 {
+    color: aqua;
+}
+img {
+    height: 400px;
+    background-size: cover;
+}
+.importantParagraph{
+    color: crimson;
+}
+.notImportantParagraph{
+    color: grey;
+    background-color:lightblue
+}
