@@ -118,7 +118,34 @@ function filterArray(testArray) {
 * Expected Output : [6, 'dog', 'car']
 */
 function findMostFrequent(testArray) {
-  return []
+  // if (!testArray)
+  //   return null;
+  // var outputArray = [];
+  // var previousMax = 0;
+  // var occurrencesNumber = 1;
+
+  // for (var i = 0; i < testArray.length; i++) {
+  //   var element = testArray[i];
+  //   for (var j = 0; j < testArray.length; j++) {
+  //     if (j !== i) {
+  //       if (element === testArray[j])
+  //         occurrencesNumber++;
+  //     }
+  //   }
+  //   if (previousMax < occurrencesNumber) {
+  //     outputArray.length = 0;
+  //     outputArray.push(element);
+  //     previousMax = occurrencesNumber;
+  //   }
+  //   else if (previousMax === occurrencesNumber) {
+  //     outputArray.push(element);
+  //   }
+  //   occurrencesNumber = 1;
+  //   testArray.shift();
+  // }
+  // console.log(outputArray);
+  // return outputArray;
+  return [];
 }
 
 /*
@@ -151,7 +178,8 @@ function getFibonacciNumber(index) {
 * Expected Output : 'B'
 */
 function getCaesarCode(message, factor) {
-  return 'encoded message';
+  if (!message)
+    return null;
 }
 
 /*
@@ -169,7 +197,12 @@ function sumAll(arg1, arg2) {
 * Expected Output : John
 */
 function capitalize(word) {
-  return 0;
+  if (!word)
+    return "";
+
+    word = word.toLowerCase();
+    
+  return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
 /**
