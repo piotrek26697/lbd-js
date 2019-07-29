@@ -121,30 +121,6 @@ function findMostFrequent(testArray) {
   // if (!testArray)
   //   return null;
   // var outputArray = [];
-  // var previousMax = 0;
-  // var occurrencesNumber = 1;
-
-  // for (var i = 0; i < testArray.length; i++) {
-  //   var element = testArray[i];
-  //   for (var j = 0; j < testArray.length; j++) {
-  //     if (j !== i) {
-  //       if (element === testArray[j])
-  //         occurrencesNumber++;
-  //     }
-  //   }
-  //   if (previousMax < occurrencesNumber) {
-  //     outputArray.length = 0;
-  //     outputArray.push(element);
-  //     previousMax = occurrencesNumber;
-  //   }
-  //   else if (previousMax === occurrencesNumber) {
-  //     outputArray.push(element);
-  //   }
-  //   occurrencesNumber = 1;
-  //   testArray.shift();
-  // }
-  // console.log(outputArray);
-  // return outputArray;
   return [];
 }
 
@@ -180,6 +156,22 @@ function getFibonacciNumber(index) {
 function getCaesarCode(message, factor) {
   if (!message)
     return null;
+  if (factor < 0)
+    return getCaesarCode(message, factor + 26);
+  var result = "";
+  let lettersAmount = 'Z'.charCodeAt(0) - 'A'.charCodeAt(0) + 1;
+
+  for (var i = 0; i < message.length; i++) {
+    var character = message.charCodeAt(i);
+
+    if (character >= 'A'.charCodeAt(0) && character <= 'Z'.charCodeAt(0))
+      result += String.fromCharCode((character - 'A'.charCodeAt(0) + factor) % lettersAmount + 'A'.charCodeAt(0));
+    else if (character >= 'a'.charCodeAt(0) && character <= 'z'.charCodeAt(0))
+      result += String.fromCharCode((character - 'a'.charCodeAt(0) + factor) % lettersAmount + 'a'.charCodeAt(0));
+    else
+      result += message.charAt(i);
+  }
+  return result;
 }
 
 /*
@@ -188,7 +180,18 @@ function getCaesarCode(message, factor) {
 * Expected Output : 10 // 1 + 2 + 3 + 4
 */
 function sumAll(arg1, arg2) {
-  return 0;
+  if (typeof (arg1) !== 'number' || typeof (arg2) !== 'number')
+    return null;
+  var sum = 0;
+  if (arg1 > arg2) {
+    var tmp = arg1;
+    arg1 = arg2;
+    arg2 = tmp;
+  }
+  for (var i = arg1; i <= arg2; i++) {
+    sum += i;
+  }
+  return sum;
 }
 
 /*
@@ -200,8 +203,7 @@ function capitalize(word) {
   if (!word)
     return "";
 
-    word = word.toLowerCase();
-    
+  word = word.toLowerCase();
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
