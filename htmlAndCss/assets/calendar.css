@@ -1,0 +1,42 @@
+.weekday-header{
+    background-color:#999;
+    border-color:#ddd;
+    border-style:solid;letter-spacing:1px;
+    line-height:25px;
+}
+.week{
+    background-color:#eaeaea;
+    height:75px;
+    margin:0;
+    text-align:left;
+    vertical-align:top;
+}
+.off-day{
+    background-color:#ddd;
+}
+.list-style{
+    font-size:75%;list-style:none;
+    padding-left:20px;
+    padding-right:5px;
+}
+.event{
+    border-radius:5px;
+    color:#10171C;
+    padding:5px;
+    margin:5px 0;
+}
+.classes{
+    background-color:#A6F4FF;
+}
+.school{
+    background-color:#BA9CE8;
+}
+.appointment{
+    background-color:#FF7E6D;
+}
+.birthday{
+    background-color:#AFFFAD;
+}
+.job{
+    background-color:#E8E193;
+}
