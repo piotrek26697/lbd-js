@@ -83,9 +83,20 @@ function isStringPalindrome(testString) {
 * Example input: 12345
 * Expected Output : 54321
 */
-function getReversedNumber(testNumber) {
-  String 
-  return true
+function getReversedNumber(testNumber) {    //
+  if (testNumber === null)
+    return null;
+  else if (typeof (testNumber) === 'undefined')
+    return null;
+  else if (isNaN(parseInt(testNumber)))
+    return null;
+  var result = "";
+  var input = String(testNumber)
+
+  for (var i = input.length - 1; i >= 0; i--) {
+    result += input.charAt(i);
+  }
+  return parseInt(result);
 }
 
 /*
