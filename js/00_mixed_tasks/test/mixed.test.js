@@ -127,7 +127,18 @@ function findMostFrequent(testArray) {
 * Expected Output : 3
 */
 function getFibonacciNumber(index) {
-  return 0;
+  if (!index)
+    return null;
+  else if (index < 0)
+    return null;
+
+  if (index == 0)
+    return 0;
+  else if (index == 1)
+    return 1;
+  else
+    return (getFibonacciNumber(index - 1) + getFibonacciNumber(index - 2));
+
 }
 
 /*
@@ -407,7 +418,7 @@ describe('8. getFibonacciNumber', () => {
   });
   it('getFibonacciNumber should return proper number for index 0', () => {
     var test = getFibonacciNumber(0);
-    var expected = 1;
+    var expected = 1;     //?????
     assert(test === expected);
   });
   it('getFibonacciNumber should return proper number for index 4', () => {
