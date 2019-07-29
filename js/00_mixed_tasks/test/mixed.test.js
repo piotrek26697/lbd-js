@@ -2,9 +2,32 @@
 * Example string : "aaabbbcdgggwerty"
 * Expected Output : "cdwerty"
 */
-function extractUniqueCharacters(testString){
-  /* implement this */
-  return 'a'
+function extractUniqueCharacters(testString) {
+  var result = "";
+  var test = true;
+  var testStr = String(testString);
+
+  if (testString === null)
+    return result;
+  else if (typeof (testString) === 'undefined')
+    return result;
+
+  for (var i = 0; i < testStr.length; i++) {
+    var character = testStr.charAt(i);
+
+    for (var j = 0; j < testStr.length; j++) {
+      if (j !== i) {
+        if (character === testStr.charAt(j)) {
+          test = false;
+          break;
+        }
+      }
+    }
+    if (test === true)
+      result += character;
+    test = true;
+  }
+  return result;
 }
 
 /*
@@ -12,9 +35,23 @@ function extractUniqueCharacters(testString){
 * Example input: 5
 * Expected Output : true
 */
-  function isNumberPrime(testNumber){
-  /* implement this */
-  return true
+function isNumberPrime(testNumber) {
+  if (testNumber === null)
+    return false;
+  else if (typeof (testNumber) === 'undefined')
+    return false;
+  else if (testNumber < 1)
+    return false;
+  else if (testNumber === 1)
+    return false;
+  else if (testNumber === 2)
+    return true;
+  else {
+    for (var i = 2; i < testNumber; i++)
+      if (testNumber % i === 0)
+        return false;
+  }
+  return true;
 }
 
 /*
@@ -22,9 +59,23 @@ function extractUniqueCharacters(testString){
 * Example input: "kajak"
 * Expected Output : true
 */
-function isStringPalindrome(testString){
-  /* implement this */
-  return true
+function isStringPalindrome(testString) {
+  var testStr = String(testString);
+  if (testStr === null)
+    return false;
+  else if (typeof (testStr) === 'undefined')
+    return false;
+
+  var i = 0;
+  var j = testStr.length - 1;
+
+  while (i < j) {
+    if (testStr.charAt(i) !== testStr.charAt(j))
+      return false;
+    i++;
+    j--;
+  }
+  return true;
 }
 
 /*
@@ -32,8 +83,8 @@ function isStringPalindrome(testString){
 * Example input: 12345
 * Expected Output : 54321
 */
-function getReversedNumber(testNumber){
-  /* implement this */
+function getReversedNumber(testNumber) {
+  String 
   return true
 }
 
@@ -42,7 +93,7 @@ function getReversedNumber(testNumber){
 * Example input: "[6, '', 'dog', undefined, null, false, 0, 'car']"
 * Expected Output : [6, 'dog', 'car']
 * */
-function filterArray(testArray){
+function filterArray(testArray) {
   return []
 }
 
@@ -51,7 +102,7 @@ function filterArray(testArray){
 * Example input: "[6, ' ', 'dog', undefined, null, false, 0, 'car']"
 * Expected Output : [6, 'dog', 'car']
 */
-function findMostFrequent(testArray){
+function findMostFrequent(testArray) {
   return []
 }
 
@@ -60,7 +111,7 @@ function findMostFrequent(testArray){
 * Example input: 4
 * Expected Output : 3
 */
-function getFibonacciNumber(index){
+function getFibonacciNumber(index) {
   return 0;
 }
 
@@ -73,7 +124,7 @@ function getFibonacciNumber(index){
 * Example input: 'A', 1
 * Expected Output : 'B'
 */
-function getCaesarCode(message, factor){
+function getCaesarCode(message, factor) {
   return 'encoded message';
 }
 
@@ -82,7 +133,7 @@ function getCaesarCode(message, factor){
 * Example input: 1, 4
 * Expected Output : 10 // 1 + 2 + 3 + 4
 */
-function sumAll(arg1, arg2){
+function sumAll(arg1, arg2) {
   return 0;
 }
 
@@ -91,7 +142,7 @@ function sumAll(arg1, arg2){
 * Example input: joHN
 * Expected Output : John
 */
-function capitalize(word){
+function capitalize(word) {
   return 0;
 }
 
@@ -105,7 +156,7 @@ function helloworld() {
 
 var assert = require("assert");
 
-describe('1. extractUniqueCharacters', ()=> {
+describe('1. extractUniqueCharacters', () => {
   it('extractUniqueCharacters should return single character when provided single character', () => {
     var test = extractUniqueCharacters('a');
     var expected = 'a';
@@ -143,7 +194,7 @@ describe('1. extractUniqueCharacters', ()=> {
   });
 });
 
-describe('2. isNumberPrime', ()=> {
+describe('2. isNumberPrime', () => {
   it('isNumberPrime should return true when provided number is prime 5', () => {
     var test = isNumberPrime(5);
     var expected = true;
@@ -176,7 +227,7 @@ describe('2. isNumberPrime', ()=> {
   });
 });
 
-describe('3. isStringPalindrome', ()=> {
+describe('3. isStringPalindrome', () => {
   it('isStringPalindrome should return true when provided input is a palindrome kajak', () => {
     var test = isStringPalindrome('kajak');
     var expected = true;
@@ -219,7 +270,7 @@ describe('3. isStringPalindrome', ()=> {
   });
 });
 
-describe('5. getReversedNumber', ()=> {
+describe('5. getReversedNumber', () => {
   it('getReversedNumber should return reversed number when provided proper long number', () => {
     var test = getReversedNumber(5456);
     var expected = 6545;
@@ -252,7 +303,7 @@ describe('5. getReversedNumber', ()=> {
   });
 });
 
-describe('6. filterArray', ()=> {
+describe('6. filterArray', () => {
   it('filterArray should return empty array when provided with null', () => {
     var test = filterArray(null);
     var expected = [];
@@ -284,13 +335,13 @@ describe('6. filterArray', ()=> {
     assert(test.toString() === expected.toString());
   });
   it('filterArray should return filtered array when provided with array [1, 0, false, undefined, null, 2 , 3]', () => {
-    var test = filterArray([1, 0, false, undefined, null, 2 , 3]);
+    var test = filterArray([1, 0, false, undefined, null, 2, 3]);
     var expected = [1, 2, 3];
     assert(test.toString() === expected.toString());
   });
 });
 
-describe('7. findMostFrequent', ()=> {
+describe('7. findMostFrequent', () => {
   it('findMostFrequent should return most frequent element of an array [1, 0]', () => {
     var test = findMostFrequent([1, 0]);
     var expected = 1;
@@ -323,7 +374,7 @@ describe('7. findMostFrequent', ()=> {
   });
 });
 
-describe('8. getFibonacciNumber', ()=> {
+describe('8. getFibonacciNumber', () => {
   it('getFibonacciNumber should return null for undefined input', () => {
     var test = getFibonacciNumber(undefined);
     var expected = null;
@@ -366,7 +417,7 @@ describe('8. getFibonacciNumber', ()=> {
   });
 });
 
-describe('9. getCaesarCode', ()=> {
+describe('9. getCaesarCode', () => {
   it('getCaesarCode should work with single letters', () => {
     var test = getCaesarCode('A', 1);
     var expected = 'B';
@@ -399,7 +450,7 @@ describe('9. getCaesarCode', ()=> {
   });
 });
 
-describe('10. sumAll', ()=> {
+describe('10. sumAll', () => {
   it('sumAll should sum numbers within the range', () => {
     var test = sumAll(1, 4);
     var expected = 10;
@@ -427,7 +478,7 @@ describe('10. sumAll', ()=> {
   });
 });
 
-describe('11. capitlaize', ()=> {
+describe('11. capitlaize', () => {
   it('capitalize should return emty string when empty string provided', () => {
     var test = capitalize("");
     var expected = "";
