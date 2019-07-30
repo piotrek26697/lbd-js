@@ -2,10 +2,11 @@
  * Implement all your JavaScript in this file!
  *  $('#output').html('test');
  */
-var number1 = null;
-var number2 = null;
+var acc = null;
+var argument = null;
 var operation = null;
 var clearPermission = true;
+var actionButtonPermission = true;
 
 $("button[id^='button']").click(showNumber);
 $("button[id$='Button']").click(setOperation);
@@ -20,50 +21,73 @@ function cleanDisplay() {
 function showNumber() {
     cleanDisplay();
     $('#display').val($('#display').val() + ($(this).val()));
+    actionButtonPermission = true;
+}
+
+function obtainValue() {
+    return $('#display').val();
+}
+
+function doMath() {
+    if (acc && argument && operation) {
+        var result = eval(acc + operation + argument);
+        $('#display').val(result);
+        acc = result;
+    }
+}
+
+function prepareEquation() {
+    if (acc === null)
+        acc = obtainValue();
+    else {
+        argument = obtainValue();
+        doMath();
+    }
+    actionButtonPermission = false;
 }
 
 function setOperation() {
     clearPermission = true;
 
-    if (number1 === null)
-        number1 = $('#display').val();
-    else
-        number2 = $('#display').val();
-
     switch (this.id) {
         case "addButton":
-            doMath();
+            if (actionButtonPermission) {
+                prepareEquation();
+            }
             operation = "+";
             break;
         case "subtractButton":
-            doMath();
+            if (actionButtonPermission) {
+                prepareEquation();
+            }
             operation = "-";
             break;
         case "multiplyButton":
-            doMath();
+            if (actionButtonPermission) {
+                prepareEquation();
+            }
             operation = "*";
             break;
         case "divideButton":
-            doMath();
+            if (actionButtonPermission) {
+                prepareEquation();
+            }
             operation = "/";
             break;
         case "clearButton":
-            number1 = null;
-            number2 = null;
+            acc = null;
+            argument = null;
             operation = null;
-            $('#display').val("");
+            cleanDisplay();
             break;
         case "equalsButton":
-            doMath();
-
-    }
-    function doMath() {
-        if (number1 && number2 && operation) {
-            var result = eval(number1 + operation + number2);
-            $('#display').val(result);
-            number1 = result;
-            number2 = null;
-            operation = null;
-        }
+            if (actionButtonPermission) {
+                if (acc !== null) {
+                    argument = obtainValue();
+                    doMath();
+                    acc = null;
+                }
+            }
+            break;
     }
 }
