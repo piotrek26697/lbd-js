@@ -7,6 +7,7 @@ var argument = null;
 var operation = null;
 var clearPermission = true;
 var actionButtonPermission = true;
+var repeatEquationPermission = false;
 
 $("button[id^='button']").click(showNumber);
 $("button[id$='Button']").click(setOperation);
@@ -22,6 +23,7 @@ function showNumber() {
     cleanDisplay();
     $('#display').val($('#display').val() + ($(this).val()));
     actionButtonPermission = true;
+    repeatEquationPermission = false;
 }
 
 function obtainValue() {
@@ -29,11 +31,9 @@ function obtainValue() {
 }
 
 function doMath() {
-    if (acc && argument && operation) {
-        var result = eval(acc + operation + argument);
-        $('#display').val(result);
-        acc = result;
-    }
+    var result = eval(acc + operation + argument);
+    $('#display').val(result);
+    acc = result;
 }
 
 function prepareEquation() {
@@ -44,6 +44,7 @@ function prepareEquation() {
         doMath();
     }
     actionButtonPermission = false;
+    repeatLastEquation = false;
 }
 
 function setOperation() {
@@ -81,11 +82,18 @@ function setOperation() {
             cleanDisplay();
             break;
         case "equalsButton":
-            if (actionButtonPermission) {
+            if (repeatEquationPermission) {
+                acc = obtainValue();
+                doMath();
+                acc = null;
+            }
+            else if (actionButtonPermission) {
                 if (acc !== null) {
                     argument = obtainValue();
                     doMath();
                     acc = null;
+
+                    repeatEquationPermission = true;
                 }
             }
             break;
