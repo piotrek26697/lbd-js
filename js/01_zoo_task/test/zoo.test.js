@@ -9,7 +9,11 @@
  * 				 week, or -1 if the animalNumber or foodAvg are less than 0 or non-numeric
  */
 function countFoodRequired(animalNumber, foodAvg) {
-  // IMPLEMENT THIS FUNCTION!
+  if (!animalNumber || typeof (animalNumber) !== 'number')
+    return -1;
+  if (!foodAvg || typeof (foodAvg) !== 'number')
+    return -1;
+  return (foodAvg * animalNumber);
 }
 
 /**
@@ -22,7 +26,26 @@ function countFoodRequired(animalNumber, foodAvg) {
  * @return Array string containing the name of the most popular day of if there is only one most popular day, and an array of the strings containing the names of the most popular days if there are more than one that are most popular
  */
 function getMostTraffic(week) {
-  // IMPLEMENT THIS FUNCTION!
+  if (!week)
+    return null;
+  else if (week.length === 0)
+    return null;
+
+  var max = 0;
+  week.reduce((a, b) => {
+    if (b.traffic > max)
+      max = b.traffic;
+    return a;
+  },null);
+  var resultArray = week.reduce((a, b) => {
+    if (b.traffic === max)
+      a.push(b.name);
+    return a;
+  }, new Array());
+  if (resultArray.length === 1)
+    return resultArray.pop();
+  else
+    return resultArray;
 }
 
 
@@ -51,7 +74,7 @@ function createAnimalObjects(names, types, breeds) {
 /**
  * A prototype to create day objects
  */
-function day (name, traffic) {
+function day(name, traffic) {
   this.name = name;
   this.traffic = traffic;
 }
@@ -59,7 +82,7 @@ function day (name, traffic) {
 /**
  * A prototype to create Goods objects
  */
-function Goods (name, barcode, sellPrice, buyPrice) {
+function Goods(name, barcode, sellPrice, buyPrice) {
   this.name = name;
   this.barcode = barcode;
   this.sellPrice = sellPrice;
@@ -68,7 +91,7 @@ function Goods (name, barcode, sellPrice, buyPrice) {
 /**
  * A prototype to create Animal objects
  */
-function Animal (name, type, breed) {
+function Animal(name, type, breed) {
   this.name = name;
   this.type = type;
   this.breed = breed;
@@ -85,35 +108,35 @@ function helloworld() {
 
 var assert = require("assert");
 
-describe('countFoodRequired', ()=> {
+describe('countFoodRequired', () => {
   it('countFoodRequired should calculate amount of food to order when inputs are positive numbers', () => {
-    var test = countFoodRequired(10,  3);
+    var test = countFoodRequired(10, 3);
     var expected = 30;
     assert(test === expected);
   });
   it('countFoodRequired should return -1 when animalNumber < 0', () => {
-    var test = countFoodRequired(-1,  1);
+    var test = countFoodRequired(-1, 1);
     var expected = -1;
     assert(test === expected);
   });
   it('countFoodRequired should return -1 when animalNumber is non-numeric', () => {
-    var test = countFoodRequired('dog',  1);
+    var test = countFoodRequired('dog', 1);
     var expected = -1;
     assert(test === expected);
   });
   it('countFoodRequired should return -1 when foodAvg < 0', () => {
-    var test = countFoodRequired(1,  -1);
+    var test = countFoodRequired(1, -1);
     var expected = -1;
     assert(test === expected);
   });
   it('countFoodRequired should return -1 when foodAvg is non-numeric', () => {
-    var test = countFoodRequired(1,  'dog');
+    var test = countFoodRequired(1, 'dog');
     var expected = -1;
     assert(test === expected);
   });
 });
 
-describe('getMostTraffic', ()=> {
+describe('getMostTraffic', () => {
   it('getMostTraffic should return day with maximal traffic when one day has most traffic', () => {
     var day1 = new day("Sunday", 100);
     var day2 = new day("Monday", 200);
@@ -125,42 +148,42 @@ describe('getMostTraffic', ()=> {
     assert(test === expected);
   });
   it('getMostTraffic should return an array of days when more than one day has most popular traffic',
-      () => {
-        var day1 = new day("Sunday", 100);
-        var day2 = new day("Monday", 300);
-        var day4 = new day("Wednesday", 300);
-        var day3 = new day("Tuesday", 150);
-        var week = [day1, day2, day3, day4];
-        var test = getMostTraffic(week);
-        assert(test.length == 2);
-        assert(test.indexOf("Monday") != -1);
-        assert(test.indexOf("Wednesday") != -1);
-        //assert(test.indexOf("Sunday") == -1);
-        //assert(test.indexOf("Tuesday") == -1);
-      });
+    () => {
+      var day1 = new day("Sunday", 100);
+      var day2 = new day("Monday", 300);
+      var day4 = new day("Wednesday", 300);
+      var day3 = new day("Tuesday", 150);
+      var week = [day1, day2, day3, day4];
+      var test = getMostTraffic(week);
+      assert(test.length == 2);
+      assert(test.indexOf("Monday") != -1);
+      assert(test.indexOf("Wednesday") != -1);
+      //assert(test.indexOf("Sunday") == -1);
+      //assert(test.indexOf("Tuesday") == -1);
+    });
   it('getMostTraffic should return null when input array is empty',
-      () => {
-        var week = [];
-        var test = getMostTraffic(week);
-        assert(test === null);
-      });
+    () => {
+      var week = [];
+      var test = getMostTraffic(week);
+      assert(test === null);
+    });
   it('getMostTraffic should return null when input array is null',
-      () => {
-        var test = getMostTraffic(null);
-        assert(test === null);
-      });
+    () => {
+      var test = getMostTraffic(null);
+      assert(test === null);
+    });
 });
 
 
 describe('createAnimalObjects', () => {
-  it('createAnimalObjects should return an array of one animal object when each array has one value',  () => {
+  it('createAnimalObjects should return an array of one animal object when each array has one value', () => {
     var animal1 = new Animal("Lola", "Dog", "Golden Retriever");
     var test = createAnimalObjects(["Lola"], ["Dog"], ["Golden Retriever"]);
     assert(test[0].name === animal1.name);
     assert(test[0].type === animal1.type);
     assert(test[0].breed === animal1.breed);
   });
-  it('createAnimalObjects should return an array of two animal objects when each array has two values',  () => {
+  it('createAnimalObjects should return an array of two animal objects when each array has two values', () => {
     var animal1 = new Animal("Lola", "Dog", "Golden Retriever");
     var animal2 = new Animal("Sprinkles", "Dog", "Pitbull");
     var test = createAnimalObjects(["Lola", "Sprinkles"], ["Dog", "Dog"], ["Golden Retriever", "Pitbull"]);
@@ -171,24 +194,24 @@ describe('createAnimalObjects', () => {
     assert(test[1].type === animal2.type);
     assert(test[1].breed === animal2.breed);
   });
-  it('createAnimalObjects should return an empty array when input array lengths are unequal',  () => {
+  it('createAnimalObjects should return an empty array when input array lengths are unequal', () => {
     var animal1 = new Animal("Lola", "Dog", "Golden Retriever");
     var test = createAnimalObjects(["Lola"], ["Dog", "Dog"], ["Golden Retriever"]);
     assert(test.length === 0);
   });
-  it('createAnimalObjects should return an empty array when input array lengths are 0',  () => {
+  it('createAnimalObjects should return an empty array when input array lengths are 0', () => {
     var test = createAnimalObjects([], [], []);
     assert(test.length === 0);
   });
-  it('createAnimalObjects should return an empty array when first input is null',  () => {
+  it('createAnimalObjects should return an empty array when first input is null', () => {
     var test = createAnimalObjects(null, ["Dog"], ["Beagle"]);
     assert(test.length === 0);
   });
-  it('createAnimalObjects should return an empty array when second input is null',  () => {
+  it('createAnimalObjects should return an empty array when second input is null', () => {
     var test = createAnimalObjects(["Snoopy"], null, ["Beagle"]);
     assert(test.length === 0);
   });
-  it('createAnimalObjects should return an empty array when third input is null',  () => {
+  it('createAnimalObjects should return an empty array when third input is null', () => {
     var test = createAnimalObjects(["Snoopy"], ["Dog"], null);
     assert(test.length === 0);
   });
