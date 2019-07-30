@@ -23,7 +23,6 @@ function showNumber() {
 }
 
 function setOperation() {
-    cleanDisplay();
     clearPermission = true;
 
     if (number1 === null)
@@ -59,7 +58,7 @@ function setOperation() {
 
     }
     function doMath() {
-        if (number1 && number2) {
+        if (number1 && number2 && operation) {
             var result = eval(number1 + operation + number2);
             $('#display').val(result);
             number1 = result;
