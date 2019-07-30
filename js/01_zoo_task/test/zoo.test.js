@@ -36,7 +36,7 @@ function getMostTraffic(week) {
     if (b.traffic > max)
       max = b.traffic;
     return a;
-  },null);
+  }, null);
   var resultArray = week.reduce((a, b) => {
     if (b.traffic === max)
       a.push(b.name);
@@ -61,7 +61,18 @@ function getMostTraffic(week) {
  *         empty array if the array's lengths are unequal or zero, or if any array is null.
  */
 function createAnimalObjects(names, types, breeds) {
-  // IMPLEMENT THIS FUNCTION!
+  if (!names || !types || !breeds)
+    return [];
+  if (names.length < 1 || types.length < 1 || breeds.length < 1)
+    return [];
+  if (names.length !== types.length && types.length !== breeds.length)
+    return [];
+
+  var resultArray = [];
+  for (var i = 0; i < names.length; i++) {
+    resultArray.push(new Animal(names[i], types[i], breeds[i]));
+  }
+  return resultArray;
 }
 
 /////////////////////////////////////////////////////////////////
