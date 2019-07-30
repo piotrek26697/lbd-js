@@ -37,11 +37,7 @@ function getMostTraffic(week) {
       max = b.traffic;
     return a;
   }, null);
-  var resultArray = week.reduce((a, b) => {
-    if (b.traffic === max)
-      a.push(b.name);
-    return a;
-  }, new Array());
+  var resultArray = week.filter(a => a.traffic === max).map(a => a.name);
   if (resultArray.length === 1)
     return resultArray.pop();
   else
