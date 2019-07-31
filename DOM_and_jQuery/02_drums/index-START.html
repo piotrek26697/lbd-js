@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>JS Drum Kit</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
+
 <body>
 
 
@@ -57,15 +61,15 @@
   <audio data-key="75" src="sounds/tom.wav"></audio>
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
-<script>
+  <script>
 
-  //////////////PLAYING THE SOUND
+    //////////////PLAYING THE SOUND
 
-  //1) Add event listener on keydown for window, that executes playSound function.
-  //YOUR CODE
+    //1) Add event listener on keydown for window, that executes playSound function.
 
-  //2) Add playSound function that takes single argument.
-  //function temporaryNameToBeChanged(e){
+    $(document).keydown(playSound);
+
+    //2) Add playSound function that takes single argument.
     //3) add const variable for audio that takes elements queried from document by querySelector - `audio[data-key="${e.keyCode}"]`
     //YOUR CODE
     //4) add const variable for key that takes elements queried from document by querySelector - `.key[data-key="${e.keyCode}"]`
@@ -80,24 +84,45 @@
     //YOUR CODE
     //8) add class - playing - to key element
     //YOUR CODE
-  //}
+    //}
+    function playSound(e) {
+      let audio = $(`audio[data-key="${e.which}"]`);
+      let key = $(`.key[data-key="${e.which}"]`);
 
-  ///////////////////////////////RESETTING STYLE
+      if (!audio[0])
+        return;
 
-  //9) implement function removeTransition that removes class from element
-  //function temporaryNameToBeChanged(e){
+      audio[0].currentTime = 0;
+      audio[0].play();
+      key.addClass("playing");
+    }
+
+    ///////////////////////////////RESETTING STYLE
+
+    //9) implement function removeTransition that removes class from element
+    //function temporaryNameToBeChanged(e){
     //10) continue function only if e.property is equal to 'transform'
     //YOUR CODE
     //11) remove class - playing - from this element
     //YOUR CODE
-  //}
+    //}
 
-  //12) add const variable for keys that takes elements queried from document by querySelectorAll - '.key']`
-  //YOUR CODE
-  //13) iterate on keys list and add event listener for each key that executes on 'transitionend' event and starts removeTransition function
+    //12) add const variable for keys that takes elements queried from document by querySelectorAll - '.key']`
+    //YOUR CODE
+    //13) iterate on keys list and add event listener for each key that executes on 'transitionend' event and starts removeTransition function
+    let keys = $(".key");
+    for (var i = 0; i < keys.length; i++) {
+      keys[i].addEventListener("transitionend", removeTransition);
+    }
+    
+    function removeTransition(e) {
+      $(this).removeClass("playing");
+      // e.target.classList.remove("playing");
+    }
 
-</script>
+  </script>
 
 
 </body>
+
 </html>
